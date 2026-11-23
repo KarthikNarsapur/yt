@@ -1,0 +1,409 @@
+# A challenge runs one day per day, strictly in order, before any general topic is used.
+# Add more challenges as more files in this folder (e.g. 30-days-kubernetes.yaml with order: 2).
+# Optional per day: my_points: your own experience to weave in.
+slug: 100-days-cloud-devops
+name: 100 Days of Cloud & DevOps
+short_name: 100 Days
+order: 1
+total: 100
+days:
+- day: 1
+  category: linux
+  title: Why Linux runs the cloud, and setting up your lab
+  task: Install Ubuntu (WSL2, a VM or a free-tier cloud VM) and run uname -a, hostnamectl and lsb_release -a.
+- day: 2
+  category: linux
+  title: 'The Linux filesystem hierarchy: /etc, /var, /home, /proc'
+  task: Explore /etc, /var/log and /proc, and write down what three files in each one are for.
+- day: 3
+  category: linux
+  title: 'Navigating and managing files: ls, cd, cp, mv, rm, find'
+  task: Build a project folder tree, then use find to list every file changed in the last 24 hours.
+- day: 4
+  category: linux
+  title: 'Reading and editing text: cat, less, head, tail, vim basics'
+  task: Edit a config file with vim, then watch a log live with tail -f.
+- day: 5
+  category: linux
+  title: Users, groups and sudo
+  task: Create a 'devops' user and group, and give the user sudo access safely.
+- day: 6
+  category: linux
+  title: 'File permissions: chmod, chown and umask'
+  task: Create a shared folder that only one group can read and write.
+- day: 7
+  category: linux
+  title: 'Processes and signals: ps, top, kill, nice'
+  task: Start a background job, find it with ps, and stop it gracefully with SIGTERM.
+- day: 8
+  category: linux
+  title: 'Package management: apt vs dnf'
+  task: Install nginx, check its version, then remove it cleanly.
+- day: 9
+  category: linux
+  title: 'systemd services: write and enable your own unit'
+  task: Turn a small script into a systemd service that starts at boot.
+- day: 10
+  category: linux
+  title: 'Logs: journalctl and /var/log'
+  task: Find failed SSH login attempts in your system logs.
+- day: 11
+  category: linux
+  title: 'Disks and storage: df, du, mounts and LVM basics'
+  task: Find the five largest directories on your machine.
+- day: 12
+  category: linux
+  title: 'Bash scripting 1: variables, conditions and loops'
+  task: Write a script that warns when any disk is over 80% full.
+- day: 13
+  category: linux
+  title: 'Bash scripting 2: functions, exit codes and scheduling'
+  task: Schedule yesterday's disk check with cron or a systemd timer.
+- day: 14
+  category: linux
+  title: Text processing with grep, sed and awk
+  task: Print the top 10 IP addresses from a web server access log.
+- day: 15
+  category: linux
+  title: 'SSH: keys, config file and hardening'
+  task: Set up key-only login and disable root login over SSH.
+- day: 16
+  category: linux
+  title: 'Networking fundamentals: IP, subnets, CIDR and ports'
+  task: Split a /24 network into four equal subnets and list their ranges.
+- day: 17
+  category: linux
+  title: 'DNS and HTTP from the terminal: dig and curl'
+  task: Trace how a domain resolves with dig and inspect its HTTP headers with curl.
+- day: 18
+  category: linux
+  title: 'Network troubleshooting: ping, traceroute, ss, tcpdump'
+  task: Find which process is listening on port 80 or 22 on your machine.
+- day: 19
+  category: devops
+  title: 'Git fundamentals: commit, branch, merge'
+  task: Create a repo, make a feature branch, and merge it back into main.
+- day: 20
+  category: devops
+  title: 'Git for teams: pull requests, rebase vs merge, conflicts'
+  task: Create a merge conflict on purpose and resolve it.
+- day: 21
+  category: aws
+  title: AWS global infrastructure and a safe account setup
+  task: Turn on MFA for the root user and create a 5-dollar budget alert.
+- day: 22
+  category: aws
+  title: IAM users, groups and policies
+  task: Create an admin IAM user and stop using the root account.
+- day: 23
+  category: aws
+  title: IAM roles and least privilege
+  task: Create a role that lets an EC2 instance read only one S3 bucket.
+- day: 24
+  category: aws
+  title: AWS CLI setup, profiles and credentials
+  task: Configure two CLI profiles and run aws sts get-caller-identity with each.
+- day: 25
+  category: aws
+  title: 'VPC basics: subnets, route tables, internet gateway'
+  task: Build a VPC with one public and one private subnet.
+- day: 26
+  category: aws
+  title: NAT gateways, security groups and NACLs
+  task: Allow SSH to an instance only from your own IP address.
+- day: 27
+  category: aws
+  title: 'EC2: launch and connect'
+  task: Launch a free-tier instance and connect with SSH or Session Manager.
+- day: 28
+  category: aws
+  title: EC2 user data and AMIs
+  task: Use user data to install nginx at boot, then create an AMI from it.
+- day: 29
+  category: aws
+  title: EBS volumes and snapshots
+  task: Attach, format and mount an extra volume, then snapshot it.
+- day: 30
+  category: aws
+  title: 'S3 fundamentals: buckets, objects and access'
+  task: Create a bucket, upload files, and confirm Block Public Access is on.
+- day: 31
+  category: aws
+  title: S3 versioning, lifecycle rules and static websites
+  task: Host a static site on S3 and add a lifecycle rule for old versions.
+- day: 32
+  category: aws
+  title: Application Load Balancer
+  task: Put an ALB in front of two instances and watch it balance traffic.
+- day: 33
+  category: aws
+  title: Auto Scaling groups
+  task: Create an Auto Scaling group with target tracking on 50% CPU.
+- day: 34
+  category: aws
+  title: 'RDS: managed relational databases'
+  task: Launch an RDS database in a private subnet and connect from EC2.
+- day: 35
+  category: aws
+  title: DynamoDB basics
+  task: Create a table and put and get items with the AWS CLI.
+- day: 36
+  category: aws
+  title: Lambda and API Gateway
+  task: Deploy a hello-world Lambda behind an HTTP API.
+- day: 37
+  category: aws
+  title: CloudWatch metrics, logs and alarms
+  task: Create an alarm that emails you when an instance's CPU passes 70%.
+- day: 38
+  category: aws
+  title: Route 53 and DNS routing policies
+  task: Create a record in a hosted zone and compare two routing policies.
+- day: 39
+  category: aws
+  title: KMS, encryption and Secrets Manager
+  task: Encrypt an S3 bucket with a KMS key and store one secret in Secrets Manager.
+- day: 40
+  category: aws
+  title: AWS cost optimization and cleaning up your lab
+  task: Use Cost Explorer, tag your resources, and delete everything you no longer need.
+- day: 41
+  category: azure
+  title: 'Azure fundamentals: tenants, subscriptions and resource groups'
+  task: Create a resource group and set a budget alert on your subscription.
+- day: 42
+  category: azure
+  title: Entra ID and Azure RBAC
+  task: Give a user the Reader role on one resource group only.
+- day: 43
+  category: azure
+  title: Azure CLI and Cloud Shell
+  task: Log in with az, list your resources, and create a resource group from the CLI.
+- day: 44
+  category: azure
+  title: Virtual networks, subnets and NSGs
+  task: Build a VNet with two subnets and an NSG rule that allows only your IP.
+- day: 45
+  category: azure
+  title: Azure virtual machines
+  task: Create a Linux VM, SSH in, and install nginx.
+- day: 46
+  category: azure
+  title: Storage accounts and Blob storage
+  task: Upload a blob and share it with a SAS token that expires in one hour.
+- day: 47
+  category: azure
+  title: Azure Load Balancer vs Application Gateway
+  task: Sketch when you'd use each one, then deploy a basic load balancer.
+- day: 48
+  category: azure
+  title: Azure App Service
+  task: Deploy a small web app to App Service from GitHub.
+- day: 49
+  category: azure
+  title: Azure Functions
+  task: Create an HTTP-triggered function and call it with curl.
+- day: 50
+  category: azure
+  title: Managed identities and Key Vault
+  task: Let a VM read a Key Vault secret using a managed identity, with no stored keys.
+- day: 51
+  category: azure
+  title: Azure Monitor, Log Analytics and KQL
+  task: Write a KQL query that shows errors from the last 24 hours.
+- day: 52
+  category: azure
+  title: Azure Policy, tags and cost management
+  task: Add a policy that requires a 'owner' tag, then clean up your lab.
+- day: 53
+  category: gcp
+  title: Google Cloud resource hierarchy, projects and billing
+  task: Create a project and a budget alert.
+- day: 54
+  category: gcp
+  title: GCP IAM and service accounts
+  task: Create a service account with only Storage Object Viewer.
+- day: 55
+  category: gcp
+  title: gcloud CLI and Cloud Shell
+  task: Set up two gcloud configurations and switch between them.
+- day: 56
+  category: gcp
+  title: VPC networks and firewall rules on GCP
+  task: Create a custom VPC and a firewall rule that allows SSH from your IP only.
+- day: 57
+  category: gcp
+  title: Compute Engine
+  task: Create a VM with a startup script that installs nginx.
+- day: 58
+  category: gcp
+  title: Cloud Storage
+  task: Create a bucket, add a lifecycle rule, and share an object with a signed URL.
+- day: 59
+  category: gcp
+  title: 'Cloud Run: deploy a container in minutes'
+  task: Deploy a sample container to Cloud Run and open its URL.
+- day: 60
+  category: gcp
+  title: Cloud Run functions (Cloud Functions)
+  task: Deploy an HTTP function and call it with curl.
+- day: 61
+  category: gcp
+  title: Cloud SQL and Firestore
+  task: Create a small Cloud SQL Postgres instance and connect to it.
+- day: 62
+  category: gcp
+  title: Cloud Load Balancing
+  task: Compare the GCP load balancer types and put one in front of a VM.
+- day: 63
+  category: gcp
+  title: Cloud Logging and Monitoring
+  task: Create a log-based alert for errors.
+- day: 64
+  category: gcp
+  title: 'AWS vs Azure vs GCP: the same services, different names'
+  task: Build your own comparison table for ten services across the three clouds.
+- day: 65
+  category: devops
+  title: Containers vs virtual machines, and installing Docker
+  task: Install Docker and run hello-world and nginx containers.
+- day: 66
+  category: devops
+  title: Docker images, layers and the Dockerfile
+  task: Write a Dockerfile for a small Python or Node app.
+- day: 67
+  category: devops
+  title: Multi-stage builds and small images
+  task: Shrink your image below 100 MB with a multi-stage build.
+- day: 68
+  category: devops
+  title: Docker volumes and bind mounts
+  task: Run Postgres with a volume and prove the data survives a restart.
+- day: 69
+  category: devops
+  title: Docker networking
+  task: Make two containers talk over a user-defined bridge network.
+- day: 70
+  category: devops
+  title: Docker Compose
+  task: Run an app, a database and Redis together with Compose.
+- day: 71
+  category: devops
+  title: 'Container registries: Docker Hub, ECR, ACR, Artifact Registry'
+  task: Push your image to one registry and pull it on another machine.
+- day: 72
+  category: devops
+  title: 'Container security basics: non-root users and image scanning'
+  task: Scan your image with Trivy and make it run as a non-root user.
+- day: 73
+  category: devops
+  title: 'Kubernetes architecture: control plane and nodes'
+  task: Create a local cluster with kind or minikube and run kubectl get nodes.
+- day: 74
+  category: devops
+  title: Pods and kubectl essentials
+  task: Run a pod, read its logs, exec into it, and describe it.
+- day: 75
+  category: devops
+  title: Deployments, ReplicaSets and rolling updates
+  task: Deploy 3 nginx replicas, roll out a new version, then roll back.
+- day: 76
+  category: devops
+  title: 'Kubernetes Services: ClusterIP, NodePort, LoadBalancer'
+  task: Expose your deployment and reach it from your machine.
+- day: 77
+  category: devops
+  title: ConfigMaps and Secrets
+  task: Inject configuration as environment variables and as a mounted file.
+- day: 78
+  category: devops
+  title: 'Ingress: routing HTTP traffic into the cluster'
+  task: Route two paths to two different services with an Ingress.
+- day: 79
+  category: devops
+  title: 'Kubernetes storage: PV, PVC and StorageClass'
+  task: Run a stateful app that keeps its data on a PVC.
+- day: 80
+  category: devops
+  title: Probes, requests, limits and autoscaling
+  task: Add a readiness probe and a Horizontal Pod Autoscaler to your app.
+- day: 81
+  category: devops
+  title: 'Helm: packaging Kubernetes apps'
+  task: Install a chart, then write a tiny chart for your own app.
+- day: 82
+  category: devops
+  title: 'Managed Kubernetes: EKS vs AKS vs GKE'
+  task: Compare the three, create one small cluster, and delete it afterwards.
+- day: 83
+  category: devops
+  title: Infrastructure as Code and Terraform basics
+  task: Install Terraform and create an S3 bucket with init, plan and apply.
+- day: 84
+  category: devops
+  title: Terraform variables, outputs and state
+  task: Make yesterday's config reusable with variables and a tfvars file.
+- day: 85
+  category: devops
+  title: Terraform remote state and locking
+  task: Move your state to an S3 backend with locking turned on.
+- day: 86
+  category: devops
+  title: Terraform modules
+  task: Write a small network module and call it twice.
+- day: 87
+  category: devops
+  title: Terraform across AWS, Azure and GCP
+  task: Create one storage bucket on each cloud from a single Terraform project.
+- day: 88
+  category: devops
+  title: 'Ansible basics: inventory, playbooks and roles'
+  task: Write a playbook that installs nginx on two hosts.
+- day: 89
+  category: devops
+  title: 'CI/CD concepts: build, test, release, deploy'
+  task: Draw the pipeline stages for an app you know.
+- day: 90
+  category: devops
+  title: GitHub Actions from zero
+  task: Create a workflow that lints, tests and builds on every push.
+- day: 91
+  category: devops
+  title: GitHub Actions to the cloud with OIDC
+  task: Deploy to AWS from GitHub Actions without storing access keys.
+- day: 92
+  category: devops
+  title: GitLab CI pipelines
+  task: Write a .gitlab-ci.yml with build, test and deploy stages.
+- day: 93
+  category: devops
+  title: Jenkins pipelines with a Jenkinsfile
+  task: Run Jenkins in Docker and create a declarative pipeline.
+- day: 94
+  category: devops
+  title: GitOps with Argo CD
+  task: Let Argo CD sync an app from Git into your local cluster.
+- day: 95
+  category: devops
+  title: Monitoring with Prometheus and Grafana
+  task: Install a Prometheus and Grafana stack and build one dashboard.
+- day: 96
+  category: devops
+  title: Centralised logging with Loki or the ELK stack
+  task: Ship container logs to Loki and query them in Grafana.
+- day: 97
+  category: devops
+  title: 'DevSecOps: secrets and security scanning in pipelines'
+  task: Add Trivy and gitleaks checks to your CI pipeline.
+- day: 98
+  category: devops
+  title: 'Deployment strategies: blue-green, canary and rollback'
+  task: Run a canary release with two deployments and shift traffic.
+- day: 99
+  category: devops
+  title: 'Capstone part 1: design a production-style project'
+  task: Design an app with Docker, Terraform, CI/CD and Kubernetes, and draw the architecture.
+- day: 100
+  category: devops
+  title: 'Capstone part 2: ship it, and what comes next'
+  task: Deploy the capstone, write its README, and post your 100-day recap.

@@ -1,0 +1,82 @@
+{
+  "topic_id": "devops-terraform-remote-state",
+  "category": "devops",
+  "topic": "Terraform remote state on S3 with locking",
+  "has_my_points": true,
+  "title": "Day 85/100: Terraform Remote Backends and Locking",
+  "thumbnail_text": "Stop Losing Terraform State",
+  "description": "Terraform state is the file that maps your code to real infrastructure. In this video you'll see why local state breaks the moment a second engineer joins, and how to move it to a remote backend with locking.\n\nIt's for engineers who already run terraform apply and want a setup that survives teams, CI pipelines and laptop failures.",
+  "tags": [
+    "terraform",
+    "terraform state",
+    "s3 backend",
+    "devops",
+    "infrastructure as code",
+    "aws"
+  ],
+  "sections": [
+    {
+      "heading": "Why state matters",
+      "narration": "Every time you run terraform apply, Terraform writes down what it created. That record is the state file. It maps each resource in your code to a real object in your cloud account. Lose it, and Terraform forgets what it built. It will try to create everything again, and that usually ends with errors or duplicate resources. So the first rule is simple. Treat state like production data.",
+      "bullets": [
+        "State maps code to real resources",
+        "Lose it and Terraform forgets",
+        "Treat it like production data"
+      ],
+      "code": null,
+      "broll": "server room"
+    },
+    {
+      "heading": "Move state to a remote backend",
+      "narration": "Local state lives on one laptop, so nobody else can safely run Terraform. A remote backend fixes that. On AWS, the common choice is an S3 bucket with versioning turned on. Versioning matters, because it lets you roll back a bad state write. Here is the backend block. Notice the use lockfile setting. It tells Terraform to create a lock file in the same bucket, so two people can't apply at the same time.",
+      "bullets": [
+        "One shared source of truth",
+        "Turn on bucket versioning",
+        "Lock to stop parallel applies"
+      ],
+      "code": {
+        "lang": "hcl",
+        "content": "terraform {\n  backend \"s3\" {\n    bucket       = \"acme-tf-state\"\n    key          = \"prod/network.tfstate\"\n    region       = \"ap-south-1\"\n    encrypt      = true\n    use_lockfile = true\n  }\n}"
+      },
+      "broll": null
+    },
+    {
+      "heading": "Recap and next step",
+      "narration": "Let's recap. State is the memory of your infrastructure. Keep it remote, versioned, encrypted and locked. Your next step is to migrate one existing project with terraform init and the migrate state flag. Do it on a small project first, and keep a backup of the old file until you're confident.",
+      "bullets": [
+        "Remote, versioned, encrypted, locked",
+        "Migrate one small project first"
+      ],
+      "code": {
+        "lang": "bash",
+        "content": "terraform init -migrate-state\nterraform plan   # expect: No changes"
+      },
+      "broll": null
+    }
+  ],
+  "short": {
+    "title": "Day 85/100: Your Terraform state is not a backup",
+    "hook": "Delete this file and Terraform forgets everything.",
+    "narration": "Delete this file and Terraform forgets everything. It's called the state file, and it maps your code to the real resources in your cloud. If it only lives on your laptop, your team can't work safely and one disk failure wipes the map. Store it in a remote backend like S3, turn on versioning, and enable locking so two applies never collide. Full video on the channel.",
+    "bullets": [
+      "State maps code to cloud",
+      "Keep it remote and versioned",
+      "Always enable locking"
+    ],
+    "code": {
+      "lang": "hcl",
+      "content": "backend \"s3\" {\n  use_lockfile = true\n}"
+    }
+  },
+  "challenge": {
+    "slug": "100-days-cloud-devops",
+    "name": "100 Days of Cloud & DevOps",
+    "day": 85,
+    "total": 100,
+    "task": "Move your state to an S3 backend with locking turned on.",
+    "next_title": "Terraform modules"
+  },
+  "review_notes": [
+    "Changed DynamoDB locking to use_lockfile (S3-native locking)"
+  ]
+}

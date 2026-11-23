@@ -1,0 +1,159 @@
+{
+  "Comment": "Daily: write + AI-review script (Claude, Ollama fallback) -> [optional approval] -> render long video + Short -> publish -> notify",
+  "StartAt": "WriteScript",
+  "States": {
+    "WriteScript": {
+      "Comment": "Claude (Pro subscription) writes + reviews the script. Small task: the model runs at Anthropic.",
+      "Type": "Task",
+      "Resource": "arn:aws:states:::ecs:runTask.sync",
+      "Parameters": {
+        "Cluster": "${cluster_arn}",
+        "TaskDefinition": "${task_definition}",
+        "CapacityProviderStrategy": [{ "CapacityProvider": "${capacity_provider}", "Weight": 1 }],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": { "Subnets": ${subnets}, "SecurityGroups": ["${security_group}"], "AssignPublicIp": "ENABLED" }
+        },
+        "Overrides": {
+          "Cpu": "1024",
+          "Memory": "2048",
+          "ContainerOverrides": [{
+            "Name": "pipeline",
+            "Command": ["script"],
+            "Environment": [{ "Name": "RUN_ID", "Value.$": "$$.Execution.Name" }]
+          }]
+        }
+      },
+      "ResultPath": null,
+      "Retry": [{ "ErrorEquals": ["States.TaskFailed", "ECS.AmazonECSException"], "IntervalSeconds": 60, "MaxAttempts": 1 }],
+      "Catch": [{ "ErrorEquals": ["States.ALL"], "ResultPath": "$.claude_error", "Next": "WriteScriptLocal" }],
+      "Next": "${after_script}"
+    },
+    "WriteScriptLocal": {
+      "Comment": "Fallback: open model on CPU via Ollama (e.g. Claude usage limit reached).",
+      "Type": "Task",
+      "Resource": "arn:aws:states:::ecs:runTask.sync",
+      "Parameters": {
+        "Cluster": "${cluster_arn}",
+        "TaskDefinition": "${task_definition}",
+        "CapacityProviderStrategy": [{ "CapacityProvider": "${capacity_provider}", "Weight": 1 }],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": { "Subnets": ${subnets}, "SecurityGroups": ["${security_group}"], "AssignPublicIp": "ENABLED" }
+        },
+        "Overrides": {
+          "ContainerOverrides": [{
+            "Name": "pipeline",
+            "Command": ["script"],
+            "Environment": [{ "Name": "RUN_ID", "Value.$": "$$.Execution.Name" }, { "Name": "LLM_PROVIDER", "Value": "ollama" }]
+          }]
+        }
+      },
+      "ResultPath": null,
+      "Retry": [{ "ErrorEquals": ["States.TaskFailed", "ECS.AmazonECSException"], "IntervalSeconds": 60, "MaxAttempts": 1 }],
+      "Catch": [{ "ErrorEquals": ["States.ALL"], "ResultPath": "$.error", "Next": "NotifyFailure" }],
+      "Next": "${after_script}"
+    },
+    "WaitForApproval": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {
+        "FunctionName": "${review_function}",
+        "Payload": { "action": "request_approval", "token.$": "$$.Task.Token", "run_id.$": "$$.Execution.Name" }
+      },
+      "TimeoutSeconds": 72000,
+      "ResultPath": "$.approval",
+      "Catch": [
+        { "ErrorEquals": ["States.Timeout"], "ResultPath": "$.error", "Next": "ReturnTopicToQueue" },
+        { "ErrorEquals": ["States.ALL"], "ResultPath": "$.error", "Next": "NotifyFailure" }
+      ],
+      "Next": "Approved?"
+    },
+    "Approved?": {
+      "Type": "Choice",
+      "Choices": [{ "Variable": "$.approval.approved", "BooleanEquals": true, "Next": "Render" }],
+      "Default": "ReturnTopicToQueue"
+    },
+    "Render": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::ecs:runTask.sync",
+      "Parameters": {
+        "Cluster": "${cluster_arn}",
+        "TaskDefinition": "${task_definition}",
+        "CapacityProviderStrategy": [{ "CapacityProvider": "${capacity_provider}", "Weight": 1 }],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": { "Subnets": ${subnets}, "SecurityGroups": ["${security_group}"], "AssignPublicIp": "ENABLED" }
+        },
+        "Overrides": {
+          "ContainerOverrides": [{
+            "Name": "pipeline",
+            "Command": ["render"],
+            "Environment": [{ "Name": "RUN_ID", "Value.$": "$$.Execution.Name" }]
+          }]
+        }
+      },
+      "ResultPath": null,
+      "Retry": [{ "ErrorEquals": ["States.TaskFailed", "ECS.AmazonECSException"], "IntervalSeconds": 60, "MaxAttempts": 2, "BackoffRate": 2 }],
+      "Catch": [{ "ErrorEquals": ["States.ALL"], "ResultPath": "$.error", "Next": "NotifyFailure" }],
+      "Next": "${after_render}"
+    },
+    "Publish": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::ecs:runTask.sync",
+      "Parameters": {
+        "Cluster": "${cluster_arn}",
+        "TaskDefinition": "${task_definition}",
+        "LaunchType": "FARGATE",
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": { "Subnets": ${subnets}, "SecurityGroups": ["${security_group}"], "AssignPublicIp": "ENABLED" }
+        },
+        "Overrides": {
+          "Cpu": "1024",
+          "Memory": "2048",
+          "ContainerOverrides": [{
+            "Name": "pipeline",
+            "Command": ["publish"],
+            "Environment": [{ "Name": "RUN_ID", "Value.$": "$$.Execution.Name" }]
+          }]
+        }
+      },
+      "ResultPath": null,
+      "Catch": [{ "ErrorEquals": ["States.ALL"], "ResultPath": "$.error", "Next": "NotifyFailure" }],
+      "Next": "NotifyReady"
+    },
+    "NotifyReady": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": { "FunctionName": "${review_function}", "Payload": { "action": "notify_ready", "run_id.$": "$$.Execution.Name" } },
+      "ResultPath": null,
+      "Next": "MarkDone"
+    },
+    "MarkDone": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": { "FunctionName": "${review_function}", "Payload": { "action": "finish", "outcome": "DONE", "run_id.$": "$$.Execution.Name" } },
+      "ResultPath": null,
+      "End": true
+    },
+    "ReturnTopicToQueue": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": { "FunctionName": "${review_function}", "Payload": { "action": "finish", "outcome": "PENDING", "run_id.$": "$$.Execution.Name" } },
+      "ResultPath": null,
+      "End": true
+    },
+    "NotifyFailure": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": { "FunctionName": "${review_function}", "Payload": { "action": "notify_failure", "run_id.$": "$$.Execution.Name", "error.$": "$.error" } },
+      "ResultPath": null,
+      "Next": "ResetTopic"
+    },
+    "ResetTopic": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": { "FunctionName": "${review_function}", "Payload": { "action": "finish", "outcome": "PENDING", "run_id.$": "$$.Execution.Name" } },
+      "ResultPath": null,
+      "Next": "Failed"
+    },
+    "Failed": { "Type": "Fail", "Error": "PipelineFailed" }
+  }
+}

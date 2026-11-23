@@ -1,0 +1,390 @@
+# Topic queue. One topic is used per day (long video + Short), rotating Linux, AWS, Azure, GCP, DevOps.
+# my_points: YOUR experience - a real incident, a mistake you saw, a tip from work. Topics with points
+# are picked first, and they are what make the channel monetizable. Fill a few each week.
+# Load/refresh into DynamoDB with: python scripts/seed_topics.py --table <topics_table>
+topics:
+- topic_id: linux-linux-file-permissions-explained-chmod-chown-and-u
+  category: linux
+  topic: 'Linux file permissions explained: chmod, chown and umask'
+  priority: 8
+  my_points: ''
+- topic_id: linux-reading-logs-like-an-sre-with-journalctl-and-var-l
+  category: linux
+  topic: Reading logs like an SRE with journalctl and /var/log
+  priority: 7
+  my_points: ''
+- topic_id: linux-systemd-services-write-enable-and-debug-your-own-u
+  category: linux
+  topic: 'systemd services: write, enable and debug your own unit'
+  priority: 7
+  my_points: ''
+- topic_id: linux-find-what-s-using-your-disk-du-df-and-ncdu
+  category: linux
+  topic: 'Find what''s using your disk: du, df and ncdu'
+  priority: 6
+  my_points: ''
+- topic_id: linux-ssh-hardening-keys-config-file-and-disabling-passw
+  category: linux
+  topic: 'SSH hardening: keys, config file and disabling password login'
+  priority: 8
+  my_points: ''
+- topic_id: linux-processes-and-signals-ps-top-kill-and-nice
+  category: linux
+  topic: 'Processes and signals: ps, top, kill and nice'
+  priority: 6
+  my_points: ''
+- topic_id: linux-linux-networking-basics-ip-ss-dig-and-curl-for-tro
+  category: linux
+  topic: 'Linux networking basics: ip, ss, dig and curl for troubleshooting'
+  priority: 8
+  my_points: ''
+- topic_id: linux-bash-scripting-fundamentals-every-devops-engineer
+  category: linux
+  topic: Bash scripting fundamentals every DevOps engineer needs
+  priority: 8
+  my_points: ''
+- topic_id: linux-cron-vs-systemd-timers-scheduling-jobs-the-right-w
+  category: linux
+  topic: 'cron vs systemd timers: scheduling jobs the right way'
+  priority: 5
+  my_points: ''
+- topic_id: linux-package-management-on-ubuntu-and-rhel-apt-vs-dnf
+  category: linux
+  topic: 'Package management on Ubuntu and RHEL: apt vs dnf'
+  priority: 5
+  my_points: ''
+- topic_id: linux-users-groups-and-sudo-least-privilege-on-linux
+  category: linux
+  topic: 'Users, groups and sudo: least privilege on Linux'
+  priority: 6
+  my_points: ''
+- topic_id: linux-linux-boot-process-from-bios-to-login-prompt
+  category: linux
+  topic: Linux boot process from BIOS to login prompt
+  priority: 5
+  my_points: ''
+- topic_id: linux-grep-sed-and-awk-for-log-analysis
+  category: linux
+  topic: grep, sed and awk for log analysis
+  priority: 7
+  my_points: ''
+- topic_id: linux-troubleshooting-high-cpu-and-memory-on-a-linux-ser
+  category: linux
+  topic: Troubleshooting high CPU and memory on a Linux server
+  priority: 8
+  my_points: ''
+- topic_id: linux-lvm-explained-resize-disks-without-downtime
+  category: linux
+  topic: 'LVM explained: resize disks without downtime'
+  priority: 5
+  my_points: ''
+- topic_id: aws-iam-explained-users-roles-policies-and-least-privi
+  category: aws
+  topic: 'IAM explained: users, roles, policies and least privilege'
+  priority: 9
+  my_points: ''
+- topic_id: aws-vpc-from-scratch-subnets-route-tables-igw-and-nat
+  category: aws
+  topic: 'VPC from scratch: subnets, route tables, IGW and NAT'
+  priority: 9
+  my_points: ''
+- topic_id: aws-ec2-instance-types-and-how-to-pick-the-right-one
+  category: aws
+  topic: EC2 instance types and how to pick the right one
+  priority: 6
+  my_points: ''
+- topic_id: aws-s3-storage-classes-and-lifecycle-rules-to-cut-cost
+  category: aws
+  topic: S3 storage classes and lifecycle rules to cut costs
+  priority: 7
+  my_points: ''
+- topic_id: aws-security-groups-vs-nacls-what-actually-blocks-traf
+  category: aws
+  topic: 'Security groups vs NACLs: what actually blocks traffic'
+  priority: 8
+  my_points: ''
+- topic_id: aws-application-load-balancer-vs-network-load-balancer
+  category: aws
+  topic: Application Load Balancer vs Network Load Balancer
+  priority: 7
+  my_points: ''
+- topic_id: aws-auto-scaling-groups-launch-templates-policies-and
+  category: aws
+  topic: 'Auto Scaling groups: launch templates, policies and health checks'
+  priority: 6
+  my_points: ''
+- topic_id: aws-lambda-in-practice-when-serverless-fits-and-when-i
+  category: aws
+  topic: 'Lambda in practice: when serverless fits and when it doesn''t'
+  priority: 7
+  my_points: ''
+- topic_id: aws-rds-vs-dynamodb-choosing-a-database-on-aws
+  category: aws
+  topic: 'RDS vs DynamoDB: choosing a database on AWS'
+  priority: 6
+  my_points: ''
+- topic_id: aws-cloudwatch-metrics-logs-and-alarms-that-matter
+  category: aws
+  topic: CloudWatch metrics, logs and alarms that matter
+  priority: 6
+  my_points: ''
+- topic_id: aws-aws-cost-optimization-the-first-ten-things-to-chec
+  category: aws
+  topic: 'AWS cost optimization: the first ten things to check'
+  priority: 8
+  my_points: ''
+- topic_id: aws-route-53-routing-policies-explained
+  category: aws
+  topic: Route 53 routing policies explained
+  priority: 5
+  my_points: ''
+- topic_id: aws-ecs-vs-eks-running-containers-on-aws
+  category: aws
+  topic: 'ECS vs EKS: running containers on AWS'
+  priority: 7
+  my_points: ''
+- topic_id: aws-kms-and-encryption-at-rest-on-aws
+  category: aws
+  topic: KMS and encryption at rest on AWS
+  priority: 6
+  my_points: ''
+- topic_id: aws-aws-organizations-scps-and-multi-account-setup
+  category: aws
+  topic: AWS Organizations, SCPs and multi-account setup
+  priority: 6
+  my_points: ''
+- topic_id: azure-azure-fundamentals-subscriptions-resource-groups-a
+  category: azure
+  topic: 'Azure fundamentals: subscriptions, resource groups and regions'
+  priority: 8
+  my_points: ''
+- topic_id: azure-azure-rbac-and-entra-id-roles-explained
+  category: azure
+  topic: Azure RBAC and Entra ID roles explained
+  priority: 8
+  my_points: ''
+- topic_id: azure-azure-virtual-network-subnets-nsgs-and-peering
+  category: azure
+  topic: 'Azure Virtual Network: subnets, NSGs and peering'
+  priority: 8
+  my_points: ''
+- topic_id: azure-azure-vms-vs-app-service-vs-container-apps
+  category: azure
+  topic: Azure VMs vs App Service vs Container Apps
+  priority: 7
+  my_points: ''
+- topic_id: azure-azure-storage-accounts-blobs-tiers-and-access-keys
+  category: azure
+  topic: 'Azure Storage accounts: blobs, tiers and access keys vs SAS'
+  priority: 7
+  my_points: ''
+- topic_id: azure-aks-basics-deploy-your-first-app-on-azure-kubernet
+  category: azure
+  topic: 'AKS basics: deploy your first app on Azure Kubernetes Service'
+  priority: 7
+  my_points: ''
+- topic_id: azure-azure-monitor-and-log-analytics-with-kql-basics
+  category: azure
+  topic: Azure Monitor and Log Analytics with KQL basics
+  priority: 6
+  my_points: ''
+- topic_id: azure-managed-identities-stop-storing-secrets-in-azure-a
+  category: azure
+  topic: 'Managed identities: stop storing secrets in Azure apps'
+  priority: 8
+  my_points: ''
+- topic_id: azure-azure-key-vault-in-practice
+  category: azure
+  topic: Azure Key Vault in practice
+  priority: 6
+  my_points: ''
+- topic_id: azure-azure-load-balancer-vs-application-gateway-vs-fron
+  category: azure
+  topic: Azure Load Balancer vs Application Gateway vs Front Door
+  priority: 6
+  my_points: ''
+- topic_id: azure-azure-policy-and-tagging-for-governance
+  category: azure
+  topic: Azure Policy and tagging for governance
+  priority: 5
+  my_points: ''
+- topic_id: azure-azure-functions-triggers-bindings-and-pricing
+  category: azure
+  topic: 'Azure Functions: triggers, bindings and pricing'
+  priority: 5
+  my_points: ''
+- topic_id: azure-azure-devops-pipelines-vs-github-actions
+  category: azure
+  topic: Azure DevOps Pipelines vs GitHub Actions
+  priority: 6
+  my_points: ''
+- topic_id: azure-azure-cost-management-budgets-and-right-sizing
+  category: azure
+  topic: 'Azure cost management: budgets and right-sizing'
+  priority: 6
+  my_points: ''
+- topic_id: azure-az-104-exam-the-topics-that-matter-most
+  category: azure
+  topic: 'AZ-104 exam: the topics that matter most'
+  priority: 7
+  my_points: ''
+- topic_id: gcp-google-cloud-basics-projects-folders-and-billing
+  category: gcp
+  topic: 'Google Cloud basics: projects, folders and billing'
+  priority: 8
+  my_points: ''
+- topic_id: gcp-gcp-iam-roles-service-accounts-and-workload-identi
+  category: gcp
+  topic: 'GCP IAM: roles, service accounts and workload identity'
+  priority: 8
+  my_points: ''
+- topic_id: gcp-gcp-vpc-global-networks-subnets-and-firewall-rules
+  category: gcp
+  topic: 'GCP VPC: global networks, subnets and firewall rules'
+  priority: 8
+  my_points: ''
+- topic_id: gcp-compute-engine-vs-cloud-run-vs-gke
+  category: gcp
+  topic: Compute Engine vs Cloud Run vs GKE
+  priority: 7
+  my_points: ''
+- topic_id: gcp-cloud-run-deep-dive-deploy-a-container-in-minutes
+  category: gcp
+  topic: 'Cloud Run deep dive: deploy a container in minutes'
+  priority: 8
+  my_points: ''
+- topic_id: gcp-gke-autopilot-vs-standard
+  category: gcp
+  topic: GKE Autopilot vs Standard
+  priority: 6
+  my_points: ''
+- topic_id: gcp-cloud-storage-classes-and-lifecycle-policies
+  category: gcp
+  topic: Cloud Storage classes and lifecycle policies
+  priority: 6
+  my_points: ''
+- topic_id: gcp-cloud-sql-vs-firestore-vs-bigquery
+  category: gcp
+  topic: Cloud SQL vs Firestore vs BigQuery
+  priority: 6
+  my_points: ''
+- topic_id: gcp-cloud-logging-and-monitoring-essentials
+  category: gcp
+  topic: Cloud Logging and Monitoring essentials
+  priority: 6
+  my_points: ''
+- topic_id: gcp-gcloud-cli-tips-every-engineer-should-know
+  category: gcp
+  topic: gcloud CLI tips every engineer should know
+  priority: 7
+  my_points: ''
+- topic_id: gcp-cloud-build-ci-cd-on-google-cloud
+  category: gcp
+  topic: Cloud Build CI/CD on Google Cloud
+  priority: 5
+  my_points: ''
+- topic_id: gcp-secret-manager-on-gcp
+  category: gcp
+  topic: Secret Manager on GCP
+  priority: 5
+  my_points: ''
+- topic_id: gcp-gcp-load-balancing-explained
+  category: gcp
+  topic: GCP load balancing explained
+  priority: 6
+  my_points: ''
+- topic_id: gcp-aws-vs-azure-vs-gcp-the-same-services-different-na
+  category: gcp
+  topic: 'AWS vs Azure vs GCP: the same services, different names'
+  priority: 9
+  my_points: ''
+- topic_id: gcp-google-cloud-cost-controls-budgets-quotas-and-comm
+  category: gcp
+  topic: 'Google Cloud cost controls: budgets, quotas and committed use'
+  priority: 5
+  my_points: ''
+- topic_id: devops-terraform-state-remote-backends-and-locking
+  category: devops
+  topic: 'Terraform state: remote backends and locking'
+  priority: 9
+  my_points: ''
+- topic_id: devops-terraform-modules-structure-a-real-project
+  category: devops
+  topic: 'Terraform modules: structure a real project'
+  priority: 8
+  my_points: ''
+- topic_id: devops-docker-images-explained-layers-caching-and-small-i
+  category: devops
+  topic: 'Docker images explained: layers, caching and small images'
+  priority: 9
+  my_points: ''
+- topic_id: devops-docker-networking-and-volumes-demystified
+  category: devops
+  topic: Docker networking and volumes demystified
+  priority: 7
+  my_points: ''
+- topic_id: devops-kubernetes-architecture-control-plane-and-worker-n
+  category: devops
+  topic: 'Kubernetes architecture: control plane and worker nodes'
+  priority: 9
+  my_points: ''
+- topic_id: devops-kubernetes-deployments-services-and-ingress
+  category: devops
+  topic: Kubernetes Deployments, Services and Ingress
+  priority: 9
+  my_points: ''
+- topic_id: devops-helm-charts-package-your-kubernetes-apps
+  category: devops
+  topic: 'Helm charts: package your Kubernetes apps'
+  priority: 7
+  my_points: ''
+- topic_id: devops-github-actions-from-zero-to-a-real-ci-pipeline
+  category: devops
+  topic: GitHub Actions from zero to a real CI pipeline
+  priority: 9
+  my_points: ''
+- topic_id: devops-gitlab-ci-pipelines-stages-jobs-and-runners
+  category: devops
+  topic: 'GitLab CI pipelines: stages, jobs and runners'
+  priority: 7
+  my_points: ''
+- topic_id: devops-jenkins-pipelines-with-a-jenkinsfile
+  category: devops
+  topic: Jenkins pipelines with a Jenkinsfile
+  priority: 6
+  my_points: ''
+- topic_id: devops-ansible-basics-inventory-playbooks-and-roles
+  category: devops
+  topic: 'Ansible basics: inventory, playbooks and roles'
+  priority: 7
+  my_points: ''
+- topic_id: devops-gitops-with-argo-cd
+  category: devops
+  topic: GitOps with Argo CD
+  priority: 7
+  my_points: ''
+- topic_id: devops-prometheus-and-grafana-monitoring-basics
+  category: devops
+  topic: Prometheus and Grafana monitoring basics
+  priority: 7
+  my_points: ''
+- topic_id: devops-git-branching-strategies-for-teams
+  category: devops
+  topic: Git branching strategies for teams
+  priority: 6
+  my_points: ''
+- topic_id: devops-secrets-management-in-ci-cd-pipelines
+  category: devops
+  topic: Secrets management in CI/CD pipelines
+  priority: 7
+  my_points: ''
+- topic_id: devops-blue-green-vs-canary-deployments
+  category: devops
+  topic: Blue-green vs canary deployments
+  priority: 6
+  my_points: ''
+- topic_id: devops-devops-engineer-roadmap-what-to-learn-in-order
+  category: devops
+  topic: 'DevOps engineer roadmap: what to learn, in order'
+  priority: 9
+  my_points: ''

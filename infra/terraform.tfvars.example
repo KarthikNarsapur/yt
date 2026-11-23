@@ -1,0 +1,23 @@
+notify_email = "you@example.com"
+region       = "ap-south-1"
+channel_name = "Cloud & DevOps Daily"
+# Set to "KarthikNarsapur/yt" to let GitHub Actions build the image; leave empty if you build on EC2 with Docker.
+github_repo  = ""
+
+# Fully automatic: AI technical review + code checks instead of your approval.
+require_approval = false
+
+# none -> download page | youtube -> direct upload (pass the API audit first!) | webhook -> Make/Zapier/n8n
+publish_mode = "none"
+
+# Script writer: your Claude Pro subscription (token from `claude setup-token`), local model as fallback.
+llm_provider = "claude"
+claude_model = "sonnet"
+
+# Optional tweaks
+# ollama_model       = "qwen2.5:7b-instruct"
+# voice              = "am_michael"
+# schedule_cron      = "cron(30 0 * * ? *)"   # 00:30 IST
+# publish_time_long  = "18:30"
+# publish_time_short = "12:30"
+# use_fargate_spot   = true
