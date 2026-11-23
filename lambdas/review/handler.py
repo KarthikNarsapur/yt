@@ -15,8 +15,13 @@ import time
 import urllib.parse
 
 import boto3
+from botocore.config import Config
 
-S3 = boto3.client("s3")
+REGION = os.environ.get("AWS_REGION", "ap-south-1")
+# Regional endpoint + SigV4: the global bucket.s3.amazonaws.com name can route new buckets to us-east-1,
+# which breaks pre-signed links ("the region 'ap-south-1' is wrong; expecting 'us-east-1'").
+S3 = boto3.client("s3", region_name=REGION, endpoint_url=f"https://s3.{REGION}.amazonaws.com",
+                  config=Config(signature_version="s3v4", s3={"addressing_style": "virtual"}))
 SFN = boto3.client("stepfunctions")
 SNS = boto3.client("sns")
 DDB = boto3.resource("dynamodb")

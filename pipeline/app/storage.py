@@ -17,7 +17,11 @@ class Store:
         self.local = bool(C.LOCAL_DIR)
         if not self.local:
             import boto3
-            self.s3 = boto3.client("s3")
+            from botocore.config import Config
+            region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION") or "ap-south-1"
+            # regional endpoint so pre-signed links work for new buckets outside us-east-1
+            self.s3 = boto3.client("s3", region_name=region, endpoint_url=f"https://s3.{region}.amazonaws.com",
+                                   config=Config(signature_version="s3v4", s3={"addressing_style": "virtual"}))
 
     def _lp(self, key):
         p = os.path.join(C.LOCAL_DIR, key)
